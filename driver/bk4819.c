@@ -496,7 +496,7 @@ void BK4819_SetTailDetection(const uint32_t freq_10Hz)
 	BK4819_WriteRegister(BK4819_REG_07, BK4819_REG_07_MODE_CTC2 | ((253910 + (freq_10Hz / 2)) / freq_10Hz));  // with rounding
 }
 
-void BK4819_EnableVox(uint16_t VoxEnableThreshold, uint16_t VoxDisableThreshold, uint8_t VoxDelay)
+void BK4819_EnableVox(uint16_t VoxEnableThreshold, uint16_t VoxDisableThreshold)
 {
 	//VOX Algorithm
 	//if (voxamp>VoxEnableThreshold)                VOX = 1;
@@ -516,7 +516,7 @@ void BK4819_EnableVox(uint16_t VoxEnableThreshold, uint16_t VoxDisableThreshold,
 	// BK4819_WriteRegister(BK4819_REG_7A, 0x289A); // vox disable delay = 128*5 = 640ms
 	// max delay = F89A = 1920ms
 	// min delay = 089A = 0ms
-	BK4819_WriteRegister(BK4819_REG_7A, (0x289A & ~(0xF << 12))|(VoxDelay<<12));
+	BK4819_WriteRegister(BK4819_REG_7A, 0x289A); // vox disable delay = 128*5 = 640ms
 	
     // Enable VOX
 	BK4819_WriteRegister(BK4819_REG_31, REG_31_Value | (1u << 2));    // VOX Enable
