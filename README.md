@@ -156,7 +156,7 @@ Packages required:
 - python3-crcmod
 
 
-## Building
+*Building*
 
 to build, simply run
 
@@ -169,7 +169,7 @@ e.g.
 the resulting `firmware.packed.bin` can then be flashed
 
 
-## Troubleshooting
+*Troubleshooting*
 
 ```
 /usr/lib/gcc/arm-none-eabi/12.2.1/../../../arm-none-eabi/bin/ld: firmware section `.text' will not fit in region `FLASH'
