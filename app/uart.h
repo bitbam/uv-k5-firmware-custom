@@ -22,5 +22,9 @@
 bool UART_IsCommandAvailable(void);
 void UART_HandleCommand(void);
 
+#ifdef ENABLE_MESSENGER_UART
+    void UART_printf(const char *str, ...);
+#endif
+
 #endif
 
