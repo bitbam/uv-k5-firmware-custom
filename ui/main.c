@@ -36,6 +36,9 @@
 #include "ui/inputbox.h"
 #include "ui/main.h"
 #include "ui/ui.h"
+#ifdef ENABLE_MESSENGER
+	#include "app/messenger.h"
+#endif
 
 center_line_t center_line = CENTER_LINE_NONE;
 
@@ -689,6 +692,10 @@ void UI_DisplayMain(void)
 		// show the audio scramble symbol
 		if (vfoInfo->SCRAMBLING_TYPE > 0 && gSetting_ScrambleEnable)
 			UI_PrintStringSmallNormal("SCR", LCD_WIDTH + 106, 0, line + 1);
+
+#ifdef ENABLE_MESSENGER
+		MSG_Init();
+#endif
 	}
 
 #ifdef ENABLE_AGC_SHOW_DATA
