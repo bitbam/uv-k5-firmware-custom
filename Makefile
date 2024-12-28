@@ -40,6 +40,11 @@ ENABLE_REDUCE_LOW_MID_TX_POWER?= 0
 ENABLE_BYP_RAW_DEMODULATORS   ?= 0
 ENABLE_BLMIN_TMP_OFF          ?= 0
 ENABLE_SCAN_RANGES            ?= 1
+ENABLE_MESSENGER                        := 1
+ENABLE_MESSENGER_DELIVERY_NOTIFICATION  := 1
+ENABLE_MESSENGER_FSK_MUTE               := 1
+ENABLE_MESSENGER_NOTIFICATION           := 1
+ENABLE_MESSENGER_UART                   := 0
 
 # ---- DEBUGGING ----
 ENABLE_AM_FIX_SHOW_DATA       ?= 0
@@ -168,6 +173,15 @@ OBJS += ui/ui.o
 OBJS += ui/welcome.o
 OBJS += version.o
 OBJS += main.o
+
+ifeq ($(ENABLE_MESSENGER),1)
+	OBJS += app/messenger.o
+	OBJS += ui/messenger.o
+endif
+ifeq ($(ENABLE_ENCRYPTION),1)
+	OBJS += external/chacha/chacha.o
+	OBJS += helper/crypto.o
+endif
 
 ifeq ($(OS), Windows_NT) # windows
     TOP := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
@@ -376,6 +390,25 @@ ifeq ($(ENABLE_UART_RW_BK_REGS),1)
 endif
 ifeq ($(ENABLE_CUSTOM_MENU_LAYOUT),1)
 	CFLAGS  += -DENABLE_CUSTOM_MENU_LAYOUT
+endif
+
+ifeq ($(ENABLE_MESSENGER),1)
+	CFLAGS  += -DENABLE_MESSENGER
+endif
+ifeq ($(ENABLE_MESSENGER_DELIVERY_NOTIFICATION),1)
+	CFLAGS  += -DENABLE_MESSENGER_DELIVERY_NOTIFICATION
+endif
+ifeq ($(ENABLE_MESSENGER_FSK_MUTE),1)
+	CFLAGS  += -DENABLE_MESSENGER_FSK_MUTE
+endif
+ifeq ($(ENABLE_MESSENGER_NOTIFICATION),1)
+	CFLAGS  += -DENABLE_MESSENGER_NOTIFICATION
+endif
+ifeq ($(ENABLE_MESSENGER_UART),1)
+	CFLAGS  += -DENABLE_MESSENGER_UART
+endif
+ifeq ($(ENABLE_ENCRYPTION),1)
+	CFLAGS  += -DENABLE_ENCRYPTION
 endif
 
 LDFLAGS =
