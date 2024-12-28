@@ -37,6 +37,9 @@
 #include "misc.h"
 #include "settings.h"
 #include "version.h"
+#ifdef ENABLE_MESSENGER_UART
+	#include "external/printf/printf.h"
+#endif
 
 #if defined(ENABLE_OVERLAY)
 	#include "sram-overlay.h"
@@ -622,3 +625,18 @@ void UART_HandleCommand(void)
 #endif
 	}
 }
+
+#ifdef ENABLE_MESSENGER_UART
+	void UART_printf(const char *str, ...)
+	{
+		char text[256];
+		int  len;
+
+		va_list va;
+		va_start(va, str);
+		len = vsnprintf(text, sizeof(text), str, va);
+		va_end(va);
+
+		UART_Send(text, len);
+	}
+#endif
