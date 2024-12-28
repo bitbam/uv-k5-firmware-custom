@@ -43,6 +43,9 @@
 #if defined(ENABLE_OVERLAY)
 	#include "sram-overlay.h"
 #endif
+#ifdef ENABLE_MESSENGER
+	gEeprom.MESSENGER_CONFIG.__val = Data[3];
+#endif
 
 #if defined(ENABLE_OVERLAY)
 	void BOARD_FLASH_Init(void)
